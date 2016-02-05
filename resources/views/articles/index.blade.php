@@ -15,5 +15,6 @@
 		</article>
 
 	@endforeach
-
+	<hr/>
+	<a href="{{url('/articles/create', '') }}">Create New Article</a>
 @stop()
