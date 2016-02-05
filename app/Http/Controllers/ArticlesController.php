@@ -7,6 +7,7 @@ use Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Input;
 use Carbon\Carbon;
+use App\Http\Requests\CreateArticle;
 
 class ArticlesController extends Controller
 {
@@ -27,10 +28,22 @@ class ArticlesController extends Controller
     	return view('articles.create');
     }
 
-    public function store()
+    public function store(CreateArticle $request)
     {
-        $input = Request::all();
-        Article::create($input);
+        Article::create($request->all());
+        return redirect('articles');
+    }
+
+    public function edit($id)
+    {
+        $article = Article::findOrFail($id);
+        return view('articles.edit')->withArticle($article);
+    }
+
+    public function update($id, CreateArticle $request)
+    {
+        $article = Article::findOrFail($id);
+        $article->update($request->all());
         return redirect('articles');
     }
 
