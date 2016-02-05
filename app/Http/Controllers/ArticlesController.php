@@ -13,17 +13,18 @@ class ArticlesController extends Controller
     public function index()
     {
     	$articles = Article::all();
-    	return view('articles.index', compact($articles));
+    	return view('articles.index')->withArticles($articles);
     }
 
     public function show($id)
     {
     	$article = Article::findOrFail($id);
-    	return view('articles.show', compact($article));
+    	return view('articles.show')->withArticle($article);
     }
 
     public function create()
     {
+
     	
     	return view('articles.create');
     }
