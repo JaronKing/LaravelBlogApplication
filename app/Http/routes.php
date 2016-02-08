@@ -8,9 +8,16 @@ Route::get('/about', 'PagesController@about');
 
 Route::get('/contatct', 'PagesController@contact');
 
-Route::get('articles', 'ArticlesController@index');
-Route::get('articles/create', 'ArticlesController@create');
-Route::get('articles/{id}', 'ArticlesController@show');
-Route::post('articles', 'ArticlesController@store');
-
 Route::resource('articles', 'ArticlesController');
+
+Route::controllers([
+	'auth' => 'Auth\Authcontroller',
+	'password' => 'Auth\PasswordController'
+]);
+
+
+Route::group(['middleware' => 'web'], function () {
+    Route::auth();
+
+    Route::get('/home', 'HomeController@index');
+});
